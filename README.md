@@ -11,9 +11,8 @@ echo "                with md5: ${downloads_md5[jdk-11-macosx-aarch64]}"
 will give:
 
 ```
-source <(curl -s -o - 'https://modelingvaluegroup.github.io/downloads/index.sh')
-echo "download latest JDK11 at: ${downloads_url[jdk-11-macosx-aarch64]}"
-echo "                with md5: ${downloads_md5[jdk-11-macosx-aarch64]}"
+download latest JDK11 at: https://modelingvaluegroup.github.io/downloads/jdk/zulu11.54.25-ca-jdk11.0.14.1-macosx_aarch64.zip
+                with md5: fdfca086b198047917de9fcf4fbfef9b
 ```
 
 ## jdk
