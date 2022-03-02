@@ -1,4 +1,4 @@
-base="https://modelingvaluegroup.github.io/downloads"
+base="https://github.com/modelingvaluegroup/downloads/raw/master"
 forall() {
     local name="$1"
     local f="$2"
@@ -17,7 +17,7 @@ forall() {
         )
     done
 }
-(
+main() {
     make_url() {
         echo "$base/$1/$2"
     }
@@ -27,4 +27,6 @@ forall() {
         md5 <$2
     }
     forall "downloads_md5" make_md5
-) > index.sh
+}
+
+main > index.sh
