@@ -16,13 +16,13 @@ makeSet() {
     printf "%s\n" "$@" | sort -u
 }
 addProduct() {
-    download_product=($(makeSet "${download_product[@]}" "$1"))
+             download_product=($(makeSet "${download_product[@]}"          "$1"))
 }
 addJavaKeys() {
-     download_java_product=($(makeSet "${download_java_product[@]}"  "$1"))
-     download_java_version=($(makeSet "${download_java_version[@]}"  "$2"))
-    download_java_platform=($(makeSet "${download_java_platform[@]}" "$3"))
-        download_java_arch=($(makeSet "${download_java_arch[@]}"     "$4"))
+        download_java_product=($(makeSet "${download_java_product[@]}"     "$1"))
+        download_java_version=($(makeSet "${download_java_version[@]}"     "$2"))
+       download_java_platform=($(makeSet "${download_java_platform[@]}"    "$3"))
+           download_java_arch=($(makeSet "${download_java_arch[@]}"        "$4"))
 }
 addEclipseKeys() {
      download_eclipse_product=($(makeSet "${download_eclipse_product[@]}"  "$1"))
