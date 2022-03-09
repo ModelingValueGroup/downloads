@@ -12,6 +12,9 @@ declare -ax download_java_product download_java_version download_java_platform d
 unset       download_eclipse_product download_eclipse_version download_eclipse_platform download_eclipse_arch
 declare -ax download_eclipse_product download_eclipse_version download_eclipse_platform download_eclipse_arch
 
+unset       download_maven_product download_maven_version
+declare -ax download_maven_product download_maven_version
+
 makeSet() {
     printf "%s\n" "$@" | sort -u
 }
@@ -29,6 +32,10 @@ addEclipseKeys() {
      download_eclipse_version=($(makeSet "${download_eclipse_version[@]}"  "$2"))
     download_eclipse_platform=($(makeSet "${download_eclipse_platform[@]}" "$3"))
         download_eclipse_arch=($(makeSet "${download_eclipse_arch[@]}"     "$4"))
+}
+addMavenKeys() {
+       download_maven_product=($(makeSet "${download_maven_product[@]}"    "$1"))
+       download_maven_version=($(makeSet "${download_maven_version[@]}"    "$2"))
 }
 doJava() {
     local product="java"
@@ -66,6 +73,21 @@ doEclipse() {
     done
     popd >/dev/null
 }
+doMaven() {
+    local product="maven"
+    pushd "$product" >/dev/null
+    addProduct "$product"
+    for f in *; do
+        printf "  ...%-10s - %s\n" "$product" "$f" 1>&2
+        p="$(sed -E 's/^apache-maven-([0-9.]+)-(bin|src)[.](tar[.]gz|zip|dmg)$/\2/' <<<$f)"
+        v="$(sed -E 's/^apache-maven-([0-9.]+)-(bin|src)[.](tar[.]gz|zip|dmg)$/\1/' <<<$f)"
+        entry="$product-$p-$v"
+        downloads_url[$entry]="$base/$product/$f"
+        downloads_md5[$entry]="$(md5 <"$f")"
+        addMavenKeys "$p" "$v"
+    done
+    popd >/dev/null
+}
 formattedDeclare() {
     for v in "$@"; do
         echo "unset $v"
@@ -77,6 +99,7 @@ formattedDeclare() {
 main() {
     doJava
     doEclipse
+    doMaven
 
     formattedDeclare \
         downloads_url \
@@ -89,7 +112,9 @@ main() {
         download_eclipse_product \
         download_eclipse_version \
         download_eclipse_platform \
-        download_eclipse_arch
+        download_eclipse_arch \
+        download_maven_product \
+        download_maven_version
 }
 
 main > index.sh

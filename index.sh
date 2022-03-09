@@ -24,6 +24,8 @@ declare -Ax downloads_url=(
     [java-jre-17-macosx-aarch64]="https://github.com/modelingvaluegroup/downloads/raw/master/java/zulu17.32.13-ca-jre17.0.2-macosx_aarch64.zip" 
     [java-jre-17-macosx-x64]="https://github.com/modelingvaluegroup/downloads/raw/master/java/zulu17.32.13-ca-jre17.0.2-macosx_x64.zip" 
     [java-jre-17-win-x64]="https://github.com/modelingvaluegroup/downloads/raw/master/java/zulu17.32.13-ca-jre17.0.2-win_x64.zip" 
+    [maven-bin-3.8.4]="https://github.com/modelingvaluegroup/downloads/raw/master/maven/apache-maven-3.8.4-bin.zip" 
+    [maven-src-3.8.4]="https://github.com/modelingvaluegroup/downloads/raw/master/maven/apache-maven-3.8.4-src.zip" 
 )
 unset downloads_md5
 declare -Ax downloads_md5=(
@@ -51,11 +53,14 @@ declare -Ax downloads_md5=(
     [java-jre-17-macosx-aarch64]="831a0a760a24647588f1e1a768584ef9" 
     [java-jre-17-macosx-x64]="8622433eadca1ff9f189ef4c9ac38f62" 
     [java-jre-17-win-x64]="e2beb167c7f469af904f51042252b7d6" 
+    [maven-bin-3.8.4]="4face1fea2cf66bcb25303d4ba994bef" 
+    [maven-src-3.8.4]="8e84b7a8c1549059d6d9c4ec8cf40c57" 
 )
 unset download_product
 declare -ax download_product=(
     [0]="eclipse" 
-    [1]="java"
+    [1]="java" 
+    [2]="maven"
 )
 unset download_java_product
 declare -ax download_java_product=(
@@ -97,4 +102,13 @@ unset download_eclipse_arch
 declare -ax download_eclipse_arch=(
     [0]="aarch64" 
     [1]="x86_64"
+)
+unset download_maven_product
+declare -ax download_maven_product=(
+    [0]="bin" 
+    [1]="src"
+)
+unset download_maven_version
+declare -ax download_maven_version=(
+    [0]="3.8.4"
 )

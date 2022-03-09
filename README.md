@@ -22,4 +22,7 @@ Subset mirror of downloads under https://www.azul.com/downloads/?package=jdk
 Subset mirror of downloads under https://www.azul.com/downloads/?package=jre
 
 ### eclipse
-Subset mirror of dlownloads under https://www.eclipse.org/downloads/packages/release
+Subset mirror of downloads under https://www.eclipse.org/downloads/packages/release
+
+### maven
+Subset mirror of downloads under https://dlcdn.apache.org/maven
