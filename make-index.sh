@@ -47,6 +47,7 @@ doJava() {
         v="$(sed 's/^zulu\([^.]*\)[.]\([0-9.]*\)-ca-\(...\)\([0-9.]*\)-\([a-z]*\)_\([a-z0-9]*\)[.]zip$/\1/' <<<$f)"
         o="$(sed 's/^zulu\([^.]*\)[.]\([0-9.]*\)-ca-\(...\)\([0-9.]*\)-\([a-z]*\)_\([a-z0-9]*\)[.]zip$/\5/' <<<$f)"
         a="$(sed 's/^zulu\([^.]*\)[.]\([0-9.]*\)-ca-\(...\)\([0-9.]*\)-\([a-z]*\)_\([a-z0-9]*\)[.]zip$/\6/' <<<$f)"
+        if [[ "$p" == "$f" ]]; then echo "ERROR: could not parse filename $f"; exit 99; fi
         entry="$product-$p-$v-$o-$a"
         downloads_url[$entry]="$base/$product/$f"
         downloads_md5[$entry]="$(md5 <"$f")"
@@ -60,12 +61,13 @@ doEclipse() {
     addProduct "$product"
     for f in *; do
         printf "  ...%-10s - %s\n" "$product" "$f" 1>&2
-        p="$(sed -E 's/^eclipse-([^-]+)-([0-9]+-[0-9]+)-(M[0-9]+)-([^-]+)(-([^-]+))?-(.*)[.](tar[.]gz|zip|dmg)$/\1/' <<<$f)"
-        v="$(sed -E 's/^eclipse-([^-]+)-([0-9]+-[0-9]+)-(M[0-9]+)-([^-]+)(-([^-]+))?-(.*)[.](tar[.]gz|zip|dmg)$/\2/' <<<$f)"
-        m="$(sed -E 's/^eclipse-([^-]+)-([0-9]+-[0-9]+)-(M[0-9]+)-([^-]+)(-([^-]+))?-(.*)[.](tar[.]gz|zip|dmg)$/\3/' <<<$f)"
-        o="$(sed -E 's/^eclipse-([^-]+)-([0-9]+-[0-9]+)-(M[0-9]+)-([^-]+)(-([^-]+))?-(.*)[.](tar[.]gz|zip|dmg)$/\4/' <<<$f)"
-        d="$(sed -E 's/^eclipse-([^-]+)-([0-9]+-[0-9]+)-(M[0-9]+)-([^-]+)(-([^-]+))?-(.*)[.](tar[.]gz|zip|dmg)$/\6/' <<<$f)"
-        a="$(sed -E 's/^eclipse-([^-]+)-([0-9]+-[0-9]+)-(M[0-9]+)-([^-]+)(-([^-]+))?-(.*)[.](tar[.]gz|zip|dmg)$/\7/' <<<$f)"
+        p="$(sed -E 's/^eclipse-([^-]+)-([0-9]+-[0-9]+)-([MR0-9]+)-([^-]+)(-([^-]+))?-(.*)[.](tar[.]gz|zip|dmg)$/\1/' <<<$f)"
+        v="$(sed -E 's/^eclipse-([^-]+)-([0-9]+-[0-9]+)-([MR0-9]+)-([^-]+)(-([^-]+))?-(.*)[.](tar[.]gz|zip|dmg)$/\2/' <<<$f)"
+        m="$(sed -E 's/^eclipse-([^-]+)-([0-9]+-[0-9]+)-([MR0-9]+)-([^-]+)(-([^-]+))?-(.*)[.](tar[.]gz|zip|dmg)$/\3/' <<<$f)"
+        o="$(sed -E 's/^eclipse-([^-]+)-([0-9]+-[0-9]+)-([MR0-9]+)-([^-]+)(-([^-]+))?-(.*)[.](tar[.]gz|zip|dmg)$/\4/' <<<$f)"
+        d="$(sed -E 's/^eclipse-([^-]+)-([0-9]+-[0-9]+)-([MR0-9]+)-([^-]+)(-([^-]+))?-(.*)[.](tar[.]gz|zip|dmg)$/\6/' <<<$f)"
+        a="$(sed -E 's/^eclipse-([^-]+)-([0-9]+-[0-9]+)-([MR0-9]+)-([^-]+)(-([^-]+))?-(.*)[.](tar[.]gz|zip|dmg)$/\7/' <<<$f)"
+        if [[ "$p" == "$f" ]]; then echo "ERROR: could not parse filename $f"; exit 99; fi
         entry="$product-$p-$v-$o-$a"
         downloads_url[$entry]="$base/$product/$f"
         downloads_md5[$entry]="$(md5 <"$f")"
@@ -81,6 +83,7 @@ doMaven() {
         printf "  ...%-10s - %s\n" "$product" "$f" 1>&2
         p="$(sed -E 's/^apache-maven-([0-9.]+)-(bin|src)[.](tar[.]gz|zip|dmg)$/\2/' <<<$f)"
         v="$(sed -E 's/^apache-maven-([0-9.]+)-(bin|src)[.](tar[.]gz|zip|dmg)$/\1/' <<<$f)"
+        if [[ "$p" == "$f" ]]; then echo "ERROR: could not parse filename $f"; exit 99; fi
         entry="$product-$p-$v"
         downloads_url[$entry]="$base/$product/$f"
         downloads_md5[$entry]="$(md5 <"$f")"
