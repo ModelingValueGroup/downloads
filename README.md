@@ -15,13 +15,13 @@ download latest JDK11 at: https://github.com/modelingvaluegroup/downloads/raw/ma
                 with md5: fdfca086b198047917de9fcf4fbfef9b
 ```
 
+### eclipse
+Subset mirror of downloads under https://www.eclipse.org/downloads/packages/release
+
 ### java
 Subset mirror of downloads under https://www.azul.com/downloads/?package=jdk
 
 Subset mirror of downloads under https://www.azul.com/downloads/?package=jre
-
-### eclipse
-Subset mirror of downloads under https://www.eclipse.org/downloads/packages/release
 
 ### maven
 Subset mirror of downloads under https://dlcdn.apache.org/maven
