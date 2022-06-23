@@ -15,6 +15,9 @@ declare -ax download_eclipse_product download_eclipse_version download_eclipse_p
 unset       download_maven_product download_maven_version
 declare -ax download_maven_product download_maven_version
 
+unset       download_nsis_access_control_version
+declare -ax download_nsis_access_control_version
+
 makeSet() {
     printf "%s\n" "$@" | sort -u
 }
@@ -37,12 +40,15 @@ addMavenKeys() {
        download_maven_product=($(makeSet "${download_maven_product[@]}"    "$1"))
        download_maven_version=($(makeSet "${download_maven_version[@]}"    "$2"))
 }
+addNsisAccessControlKeys() {
+       download_nsis_access_control_version=($(makeSet "${download_nsis_access_control_version[@]}"    "$1"))
+}
 doJava() {
     local product="java"
     pushd $product >/dev/null
     addProduct "$product"
     for f in *; do
-        printf "  ...%-10s - %s\n" "$product" "$f" 1>&2
+        printf "  ...%-20s - %s\n" "$product" "$f" 1>&2
         p="$(sed 's/^zulu\([^.]*\)[.]\([0-9.]*\)-ca-\(...\)\([0-9.]*\)-\([a-z]*\)_\([a-z0-9]*\)[.]zip$/\3/' <<<$f)"
         v="$(sed 's/^zulu\([^.]*\)[.]\([0-9.]*\)-ca-\(...\)\([0-9.]*\)-\([a-z]*\)_\([a-z0-9]*\)[.]zip$/\1/' <<<$f)"
         o="$(sed 's/^zulu\([^.]*\)[.]\([0-9.]*\)-ca-\(...\)\([0-9.]*\)-\([a-z]*\)_\([a-z0-9]*\)[.]zip$/\5/' <<<$f)"
@@ -60,7 +66,7 @@ doEclipse() {
     pushd "$product" >/dev/null
     addProduct "$product"
     for f in *; do
-        printf "  ...%-10s - %s\n" "$product" "$f" 1>&2
+        printf "  ...%-20s - %s\n" "$product" "$f" 1>&2
         p="$(sed -E 's/^eclipse-([^-]+)-([0-9]+-[0-9]+)-([MR0-9]+)-([^-]+)(-([^-]+))?-(.*)[.](tar[.]gz|zip|dmg)$/\1/' <<<$f)"
         v="$(sed -E 's/^eclipse-([^-]+)-([0-9]+-[0-9]+)-([MR0-9]+)-([^-]+)(-([^-]+))?-(.*)[.](tar[.]gz|zip|dmg)$/\2/' <<<$f)"
         m="$(sed -E 's/^eclipse-([^-]+)-([0-9]+-[0-9]+)-([MR0-9]+)-([^-]+)(-([^-]+))?-(.*)[.](tar[.]gz|zip|dmg)$/\3/' <<<$f)"
@@ -80,7 +86,7 @@ doMaven() {
     pushd "$product" >/dev/null
     addProduct "$product"
     for f in *; do
-        printf "  ...%-10s - %s\n" "$product" "$f" 1>&2
+        printf "  ...%-20s - %s\n" "$product" "$f" 1>&2
         p="$(sed -E 's/^apache-maven-([0-9.]+)-(bin|src)[.](tar[.]gz|zip|dmg)$/\2/' <<<$f)"
         v="$(sed -E 's/^apache-maven-([0-9.]+)-(bin|src)[.](tar[.]gz|zip|dmg)$/\1/' <<<$f)"
         if [[ "$p" == "$f" ]]; then echo "ERROR: could not parse filename $f"; exit 99; fi
@@ -88,6 +94,21 @@ doMaven() {
         downloads_url[$entry]="$base/$product/$f"
         downloads_md5[$entry]="$(md5 <"$f")"
         addMavenKeys "$p" "$v"
+    done
+    popd >/dev/null
+}
+doNsisAccessControl() {
+    local product="nsisAccessControl"
+    pushd "$product" >/dev/null
+    addProduct "$product"
+    for f in *; do
+        printf "  ...%-20s - %s\n" "$product" "$f" 1>&2
+        v="$(sed -E 's/^AccessControl-([0-9.]+).zip$/\1/' <<<$f)"
+        if [[ "$v" == "$f" ]]; then echo "ERROR: could not parse filename $f"; exit 99; fi
+        entry="$product-$v"
+        downloads_url[$entry]="$base/$product/$f"
+        downloads_md5[$entry]="$(md5 <"$f")"
+        addNsisAccessControlKeys "$v"
     done
     popd >/dev/null
 }
@@ -103,6 +124,7 @@ main() {
     doJava
     doEclipse
     doMaven
+    doNsisAccessControl
 
     formattedDeclare \
         downloads_url \
@@ -117,7 +139,8 @@ main() {
         download_eclipse_platform \
         download_eclipse_arch \
         download_maven_product \
-        download_maven_version
+        download_maven_version \
+        download_nsis_access_control_version
 }
 
 main > index.sh

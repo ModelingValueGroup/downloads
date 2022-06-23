@@ -30,6 +30,7 @@ declare -Ax downloads_url=(
     [maven-bin-3.8.6]="https://github.com/modelingvaluegroup/downloads/raw/master/maven/apache-maven-3.8.6-bin.zip" 
     [maven-src-3.8.4]="https://github.com/modelingvaluegroup/downloads/raw/master/maven/apache-maven-3.8.4-src.zip" 
     [maven-src-3.8.6]="https://github.com/modelingvaluegroup/downloads/raw/master/maven/apache-maven-3.8.6-src.zip" 
+    [nsisAccessControl-1.0.8.3]="https://github.com/modelingvaluegroup/downloads/raw/master/nsisAccessControl/AccessControl-1.0.8.3.zip" 
 )
 unset downloads_md5
 declare -Ax downloads_md5=(
@@ -63,12 +64,14 @@ declare -Ax downloads_md5=(
     [maven-bin-3.8.6]="b340ea83bfff9348059791d611df80dd" 
     [maven-src-3.8.4]="8e84b7a8c1549059d6d9c4ec8cf40c57" 
     [maven-src-3.8.6]="9036aadcd02431094b6367f1a1342109" 
+    [nsisAccessControl-1.0.8.3]="6788149dcf34e89257d8d43b2a3aaa21" 
 )
 unset download_product
 declare -ax download_product=(
     [0]="eclipse" 
     [1]="java" 
-    [2]="maven"
+    [2]="maven" 
+    [3]="nsisAccessControl"
 )
 unset download_java_product
 declare -ax download_java_product=(
@@ -120,4 +123,8 @@ unset download_maven_version
 declare -ax download_maven_version=(
     [0]="3.8.4" 
     [1]="3.8.6"
+)
+unset download_nsis_access_control_version
+declare -ax download_nsis_access_control_version=(
+    [0]="1.0.8.3"
 )
