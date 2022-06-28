@@ -80,8 +80,8 @@ declare -ax download_java_product=(
 )
 unset download_java_version
 declare -ax download_java_version=(
-    [0]="11" 
-    [1]="17"
+    [0]="17" 
+    [1]="11"
 )
 unset download_java_platform
 declare -ax download_java_platform=(
@@ -100,8 +100,8 @@ declare -ax download_eclipse_product=(
 )
 unset download_eclipse_version
 declare -ax download_eclipse_version=(
-    [0]="2021-12" 
-    [1]="2022-06"
+    [0]="2022-06" 
+    [1]="2021-12"
 )
 unset download_eclipse_platform
 declare -ax download_eclipse_platform=(
@@ -121,8 +121,8 @@ declare -ax download_maven_product=(
 )
 unset download_maven_version
 declare -ax download_maven_version=(
-    [0]="3.8.4" 
-    [1]="3.8.6"
+    [0]="3.8.6" 
+    [1]="3.8.4"
 )
 unset download_nsis_access_control_version
 declare -ax download_nsis_access_control_version=(

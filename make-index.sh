@@ -21,27 +21,30 @@ declare -ax download_nsis_access_control_version
 makeSet() {
     printf "%s\n" "$@" | sort -u
 }
+makeSetRev() {
+    printf "%s\n" "$@" | sort -ur
+}
 addProduct() {
-             download_product=($(makeSet "${download_product[@]}"          "$1"))
+                          download_product=($(makeSet     "${download_product[@]}"                     "$1")); shift
 }
 addJavaKeys() {
-        download_java_product=($(makeSet "${download_java_product[@]}"     "$1"))
-        download_java_version=($(makeSet "${download_java_version[@]}"     "$2"))
-       download_java_platform=($(makeSet "${download_java_platform[@]}"    "$3"))
-           download_java_arch=($(makeSet "${download_java_arch[@]}"        "$4"))
+                      download_java_product=($(makeSet    "${download_java_product[@]}"                "$1")); shift
+                      download_java_version=($(makeSetRev "${download_java_version[@]}"                "$1")); shift
+                     download_java_platform=($(makeSet    "${download_java_platform[@]}"               "$1")); shift
+                         download_java_arch=($(makeSet    "${download_java_arch[@]}"                   "$1")); shift
 }
 addEclipseKeys() {
-     download_eclipse_product=($(makeSet "${download_eclipse_product[@]}"  "$1"))
-     download_eclipse_version=($(makeSet "${download_eclipse_version[@]}"  "$2"))
-    download_eclipse_platform=($(makeSet "${download_eclipse_platform[@]}" "$3"))
-        download_eclipse_arch=($(makeSet "${download_eclipse_arch[@]}"     "$4"))
+                   download_eclipse_product=($(makeSet    "${download_eclipse_product[@]}"             "$1")); shift
+                   download_eclipse_version=($(makeSetRev "${download_eclipse_version[@]}"             "$1")); shift
+                  download_eclipse_platform=($(makeSet    "${download_eclipse_platform[@]}"            "$1")); shift
+                      download_eclipse_arch=($(makeSet    "${download_eclipse_arch[@]}"                "$1")); shift
 }
 addMavenKeys() {
-       download_maven_product=($(makeSet "${download_maven_product[@]}"    "$1"))
-       download_maven_version=($(makeSet "${download_maven_version[@]}"    "$2"))
+                     download_maven_product=($(makeSet    "${download_maven_product[@]}"               "$1")); shift
+                     download_maven_version=($(makeSetRev "${download_maven_version[@]}"               "$1")); shift
 }
 addNsisAccessControlKeys() {
-       download_nsis_access_control_version=($(makeSet "${download_nsis_access_control_version[@]}"    "$1"))
+       download_nsis_access_control_version=($(makeSetRev "${download_nsis_access_control_version[@]}" "$1")); shift
 }
 doJava() {
     local product="java"
